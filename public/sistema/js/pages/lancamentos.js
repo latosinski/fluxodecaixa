@@ -110,8 +110,13 @@ window.LancamentosPage = (function() {
     };
   }
 
-  function abrirModalCadastro() { preencherModal(null); }
+  // Recarrega dados ANTES de abrir o modal — garante categorias atualizadas
+  function abrirModalCadastro() {
+    carregarDados();
+    preencherModal(null);
+  }
   function abrirModalEdicao(id) {
+    carregarDados();
     const lanc = lancamentos.find(l => l.id === id);
     if (!lanc) return;
     preencherModal(lanc);
@@ -252,11 +257,20 @@ window.LancamentosPage = (function() {
     function carregarCategorias(tipo) {
       catSelect.innerHTML = '<option value="">Selecione...</option>';
       catSelect.disabled = !tipo;
+
       if (tipo === 'receita') {
+        if (!categoriasReceitas || categoriasReceitas.length === 0) {
+          catSelect.innerHTML = '<option value="">Nenhuma categoria de receita cadastrada — cadastre no Plano de Contas</option>';
+          return;
+        }
         categoriasReceitas.forEach(c => {
           catSelect.innerHTML += `<option value="${c.id}" ${lanc && lanc.categoriaId === c.id ? 'selected' : ''}>${Utils.escapeHtml(c.nome)}</option>`;
         });
       } else if (tipo === 'despesa') {
+        if (!categoriasDespesas || categoriasDespesas.length === 0) {
+          catSelect.innerHTML = '<option value="">Nenhuma categoria de despesa cadastrada — cadastre no Plano de Contas</option>';
+          return;
+        }
         categoriasDespesas.forEach(c => {
           catSelect.innerHTML += `<option value="${c.id}" ${lanc && lanc.categoriaId === c.id ? 'selected' : ''}>${Utils.escapeHtml(c.nome)}</option>`;
         });

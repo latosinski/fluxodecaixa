@@ -112,8 +112,9 @@ window.ValoresAbertosPage = (function() {
   }
 
   function abrirModalEdicao(id) {
-    const lanc = lancamentos.find(l => l.id === id);
-    if (!lanc) { UI.showToast('Lançamento não encontrado.', 'error'); return; }
+  carregarDados();
+  const lanc = lancamentos.find(l => l.id === id);
+  if (!lanc) { UI.showToast('Lançamento não encontrado.', 'error'); return; }
 
     const categorias = lanc.tipo === 'receita' ? categoriasReceitas : categoriasDespesas;
     const qtdInicial = lanc.quantidade != null ? lanc.quantidade : 1;

@@ -112,8 +112,9 @@ window.ContasReceberPage = (function() {
   }
 
   function abrirModalEdicao(id) {
-    const lanc = receitas.find(l => l.id === id);
-    if (!lanc) { UI.showToast('Conta não encontrada.', 'error'); return; }
+  carregarDados();
+  const lanc = receitas.find(l => l.id === id);
+  if (!lanc) { UI.showToast('Conta não encontrada.', 'error'); return; }
 
     const qtdInicial = lanc.quantidade != null ? lanc.quantidade : 1;
     const vuInicial = lanc.valorUnitario != null ? lanc.valorUnitario : lanc.valor;

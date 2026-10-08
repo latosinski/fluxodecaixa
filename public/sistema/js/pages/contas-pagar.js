@@ -112,8 +112,9 @@ window.ContasPagarPage = (function() {
   }
 
   function abrirModalEdicao(id) {
-    const lanc = despesas.find(l => l.id === id);
-    if (!lanc) { UI.showToast('Conta não encontrada.', 'error'); return; }
+  carregarDados();
+  const lanc = despesas.find(l => l.id === id);
+  if (!lanc) { UI.showToast('Conta não encontrada.', 'error'); return; }
 
     const qtdInicial = lanc.quantidade != null ? lanc.quantidade : 1;
     const vuInicial = lanc.valorUnitario != null ? lanc.valorUnitario : lanc.valor;
