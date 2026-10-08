@@ -55,7 +55,7 @@ export default function DemoPrice() {
                     </a>
 
                     <a
-                        href="/sistema/inde.html"
+                        href="/sistema/index.html"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="demo-link"
